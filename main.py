@@ -11,7 +11,7 @@ def main(argv):
         in = FileStream(sys.argv[1])
     else:
         in = InputStream(sys.stdin.readline())
-    
+
     lexer = Lexer(in)
     tokens = CommonTokenStream(lexer)
     parser = Parser(tokens)
