@@ -8,12 +8,30 @@ else:
 # This class defines a complete listener for a parse tree produced by poplParser.
 class poplListener(ParseTreeListener):
 
-    # Enter a parse tree produced by poplParser#hi.
-    def enterHi(self, ctx:poplParser.HiContext):
+    # Enter a parse tree produced by poplParser#start.
+    def enterStart(self, ctx:poplParser.StartContext):
         pass
 
-    # Exit a parse tree produced by poplParser#hi.
-    def exitHi(self, ctx:poplParser.HiContext):
+    # Exit a parse tree produced by poplParser#start.
+    def exitStart(self, ctx:poplParser.StartContext):
+        pass
+
+
+    # Enter a parse tree produced by poplParser#expr.
+    def enterExpr(self, ctx:poplParser.ExprContext):
+        pass
+
+    # Exit a parse tree produced by poplParser#expr.
+    def exitExpr(self, ctx:poplParser.ExprContext):
+        pass
+
+
+    # Enter a parse tree produced by poplParser#assign.
+    def enterAssign(self, ctx:poplParser.AssignContext):
+        pass
+
+    # Exit a parse tree produced by poplParser#assign.
+    def exitAssign(self, ctx:poplParser.AssignContext):
         pass
 
 

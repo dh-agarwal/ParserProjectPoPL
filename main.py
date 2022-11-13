@@ -3,21 +3,24 @@
 # --- IMPORTS ---
 import sys
 from antlr4 import *
-from lexer import Lexer
-from parser import Parser
+from antlr4.tree.Trees import Trees #Tree visualization in text
+from poplLexer import poplLexer
+from poplParser import poplParser
 
+# --- MAIN ---
 def main(argv):
     if len(sys.argv) > 1:
-        in = FileStream(sys.argv[1])
+        io_stream = FileStream(sys.argv[1])
     else:
-        in = InputStream(sys.stdin.readline())
+        io_stream = InputStream(sys.stdin.readline())
 
-    lexer = Lexer(in)
+    lexer = poplLexer(io_stream)
     tokens = CommonTokenStream(lexer)
-    parser = Parser(tokens)
-    tree = parser.prog()
+    parser = poplParser(tokens)
+    tree = parser.hi()
 
     print(tree.toStringTree(recog=parser))
+    print(Trees.toStringTree(tree, None, parser))
 
 
 if __name__ == "__main__":
