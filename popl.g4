@@ -9,7 +9,7 @@ expr: expr ('*' | '/' | '+' | '-' | '%') expr
     | VAR
     | '(' expr ')';
 
-fexpr: expr ('*' | '/' | '+' | '-' | '%') expr ;
+fexpr: expr ('*' | '/' | '+' | '-' | '%') expr | (SPACE)*;
 
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 
