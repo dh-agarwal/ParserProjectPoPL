@@ -20,7 +20,6 @@ def main(argv):
     tree = parser.start()
 
     print(tree.toStringTree(recog=parser))
-    print(Trees.toStringTree(tree, None, parser))
 
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@ expr: expr ('*' | '/' | '+' | '-' | '%') expr
 VAR: [a-zA-Z0-9]+;
 
 assign: VAR ('=' | '+=' | '-=' | '*=' | '/=') expr;
-NEWLINE: [\n]+ ;
+NEWLINE: [\n]+
+    | [\r][\n]+ ;
 
 IF: VAR ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') VAR;
