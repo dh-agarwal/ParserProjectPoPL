@@ -1,6 +1,6 @@
 grammar popl;
 
-start: EMPTYLINE* (fexpr | assign | /* epsilon */) (EMPTYLINE+ fexpr | assign)* EMPTYLINE*;
+start: EMPTYLINE* (fexpr | assign | /* epsilon */) (EMPTYLINE+ (fexpr | assign))* EMPTYLINE*;
 INT: [0-9]+ ;
 
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
@@ -8,7 +8,7 @@ expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | VAR
     | '(' expr ')';
 
-fexpr: (expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr) | SPACE*;
+fexpr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr;
 
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 
