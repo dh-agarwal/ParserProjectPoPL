@@ -11,19 +11,19 @@ else:
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\22")
         buf.write("%\4\2\t\2\4\3\t\3\4\4\t\4\3\2\3\2\3\2\7\2\f\n\2\f\2\16")
         buf.write("\2\17\13\2\3\3\3\3\3\3\3\3\3\3\3\3\5\3\27\n\3\3\3\3\3")
         buf.write("\3\3\7\3\34\n\3\f\3\16\3\37\13\3\3\4\3\4\3\4\3\4\3\4\2")
         buf.write("\3\4\5\2\4\6\2\4\3\2\3\7\3\2\n\16\2$\2\r\3\2\2\2\4\26")
-        buf.write("\3\2\2\2\6 \3\2\2\2\b\t\5\4\3\2\t\n\7\20\2\2\n\f\3\2\2")
+        buf.write("\3\2\2\2\6 \3\2\2\2\b\t\5\4\3\2\t\n\7\21\2\2\n\f\3\2\2")
         buf.write("\2\13\b\3\2\2\2\f\17\3\2\2\2\r\13\3\2\2\2\r\16\3\2\2\2")
-        buf.write("\16\3\3\2\2\2\17\r\3\2\2\2\20\21\b\3\1\2\21\27\7\21\2")
+        buf.write("\16\3\3\2\2\2\17\r\3\2\2\2\20\21\b\3\1\2\21\27\7\17\2")
         buf.write("\2\22\23\7\b\2\2\23\24\5\4\3\2\24\25\7\t\2\2\25\27\3\2")
         buf.write("\2\2\26\20\3\2\2\2\26\22\3\2\2\2\27\35\3\2\2\2\30\31\f")
         buf.write("\5\2\2\31\32\t\2\2\2\32\34\5\4\3\6\33\30\3\2\2\2\34\37")
         buf.write("\3\2\2\2\35\33\3\2\2\2\35\36\3\2\2\2\36\5\3\2\2\2\37\35")
-        buf.write("\3\2\2\2 !\7\17\2\2!\"\t\3\2\2\"#\5\4\3\2#\7\3\2\2\2\5")
+        buf.write("\3\2\2\2 !\7\20\2\2!\"\t\3\2\2\"#\5\4\3\2#\7\3\2\2\2\5")
         buf.write("\r\26\35")
         return buf.getvalue()
 
@@ -44,7 +44,7 @@ class poplParser ( Parser ):
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "<INVALID>", "VAR", "NEWLINE", "INT" ]
+                      "<INVALID>", "INT", "VAR", "NEWLINE", "IF" ]
 
     RULE_start = 0
     RULE_expr = 1
@@ -65,9 +65,10 @@ class poplParser ( Parser ):
     T__9=10
     T__10=11
     T__11=12
-    VAR=13
-    NEWLINE=14
-    INT=15
+    INT=13
+    VAR=14
+    NEWLINE=15
+    IF=16
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
