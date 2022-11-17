@@ -12,19 +12,23 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\22")
-        buf.write("%\4\2\t\2\4\3\t\3\4\4\t\4\3\2\3\2\3\2\7\2\f\n\2\f\2\16")
-        buf.write("\2\17\13\2\3\3\3\3\3\3\3\3\3\3\3\3\5\3\27\n\3\3\3\3\3")
-        buf.write("\3\3\7\3\34\n\3\f\3\16\3\37\13\3\3\4\3\4\3\4\3\4\3\4\2")
-        buf.write("\3\4\5\2\4\6\2\4\3\2\3\7\3\2\n\16\2$\2\r\3\2\2\2\4\26")
-        buf.write("\3\2\2\2\6 \3\2\2\2\b\t\5\4\3\2\t\n\7\21\2\2\n\f\3\2\2")
-        buf.write("\2\13\b\3\2\2\2\f\17\3\2\2\2\r\13\3\2\2\2\r\16\3\2\2\2")
-        buf.write("\16\3\3\2\2\2\17\r\3\2\2\2\20\21\b\3\1\2\21\27\7\17\2")
-        buf.write("\2\22\23\7\b\2\2\23\24\5\4\3\2\24\25\7\t\2\2\25\27\3\2")
-        buf.write("\2\2\26\20\3\2\2\2\26\22\3\2\2\2\27\35\3\2\2\2\30\31\f")
-        buf.write("\5\2\2\31\32\t\2\2\2\32\34\5\4\3\6\33\30\3\2\2\2\34\37")
-        buf.write("\3\2\2\2\35\33\3\2\2\2\35\36\3\2\2\2\36\5\3\2\2\2\37\35")
-        buf.write("\3\2\2\2 !\7\20\2\2!\"\t\3\2\2\"#\5\4\3\2#\7\3\2\2\2\5")
-        buf.write("\r\26\35")
+        buf.write("\60\4\2\t\2\4\3\t\3\4\4\t\4\3\2\3\2\3\2\7\2\f\n\2\f\2")
+        buf.write("\16\2\17\13\2\3\2\3\2\3\2\7\2\24\n\2\f\2\16\2\27\13\2")
+        buf.write("\5\2\31\n\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\"\n\3\3\3")
+        buf.write("\3\3\3\3\7\3\'\n\3\f\3\16\3*\13\3\3\4\3\4\3\4\3\4\3\4")
+        buf.write("\2\3\4\5\2\4\6\2\4\3\2\3\7\3\2\n\16\2\62\2\30\3\2\2\2")
+        buf.write("\4!\3\2\2\2\6+\3\2\2\2\b\t\5\4\3\2\t\n\7\21\2\2\n\f\3")
+        buf.write("\2\2\2\13\b\3\2\2\2\f\17\3\2\2\2\r\13\3\2\2\2\r\16\3\2")
+        buf.write("\2\2\16\31\3\2\2\2\17\r\3\2\2\2\20\21\5\6\4\2\21\22\7")
+        buf.write("\21\2\2\22\24\3\2\2\2\23\20\3\2\2\2\24\27\3\2\2\2\25\23")
+        buf.write("\3\2\2\2\25\26\3\2\2\2\26\31\3\2\2\2\27\25\3\2\2\2\30")
+        buf.write("\r\3\2\2\2\30\25\3\2\2\2\31\3\3\2\2\2\32\33\b\3\1\2\33")
+        buf.write("\"\7\17\2\2\34\"\7\20\2\2\35\36\7\b\2\2\36\37\5\4\3\2")
+        buf.write("\37 \7\t\2\2 \"\3\2\2\2!\32\3\2\2\2!\34\3\2\2\2!\35\3")
+        buf.write("\2\2\2\"(\3\2\2\2#$\f\6\2\2$%\t\2\2\2%\'\5\4\3\7&#\3\2")
+        buf.write("\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2)\5\3\2\2\2*(\3\2\2")
+        buf.write("\2+,\7\20\2\2,-\t\3\2\2-.\5\4\3\2.\7\3\2\2\2\7\r\25\30")
+        buf.write("!(")
         return buf.getvalue()
 
 
@@ -99,6 +103,13 @@ class poplParser ( Parser ):
             else:
                 return self.getToken(poplParser.NEWLINE, i)
 
+        def assign(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(poplParser.AssignContext)
+            else:
+                return self.getTypedRuleContext(poplParser.AssignContext,i)
+
+
         def getRuleIndex(self):
             return poplParser.RULE_start
 
@@ -119,18 +130,41 @@ class poplParser ( Parser ):
         self.enterRule(localctx, 0, self.RULE_start)
         self._la = 0 # Token type
         try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 11
+            self.state = 22
             self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while _la==poplParser.T__5 or _la==poplParser.INT:
-                self.state = 6
-                self.expr(0)
-                self.state = 7
-                self.match(poplParser.NEWLINE)
-                self.state = 13
+            la_ = self._interp.adaptivePredict(self._input,2,self._ctx)
+            if la_ == 1:
+                self.enterOuterAlt(localctx, 1)
+                self.state = 11
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
+                while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << poplParser.T__5) | (1 << poplParser.INT) | (1 << poplParser.VAR))) != 0):
+                    self.state = 6
+                    self.expr(0)
+                    self.state = 7
+                    self.match(poplParser.NEWLINE)
+                    self.state = 13
+                    self._errHandler.sync(self)
+                    _la = self._input.LA(1)
+
+                pass
+
+            elif la_ == 2:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 19
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                while _la==poplParser.VAR:
+                    self.state = 14
+                    self.assign()
+                    self.state = 15
+                    self.match(poplParser.NEWLINE)
+                    self.state = 21
+                    self._errHandler.sync(self)
+                    _la = self._input.LA(1)
+
+                pass
+
 
         except RecognitionException as re:
             localctx.exception = re
@@ -150,6 +184,9 @@ class poplParser ( Parser ):
 
         def INT(self):
             return self.getToken(poplParser.INT, 0)
+
+        def VAR(self):
+            return self.getToken(poplParser.VAR, 0)
 
         def expr(self, i:int=None):
             if i is None:
@@ -181,28 +218,32 @@ class poplParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 20
+            self.state = 31
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [poplParser.INT]:
-                self.state = 15
+                self.state = 25
                 self.match(poplParser.INT)
                 pass
+            elif token in [poplParser.VAR]:
+                self.state = 26
+                self.match(poplParser.VAR)
+                pass
             elif token in [poplParser.T__5]:
-                self.state = 16
+                self.state = 27
                 self.match(poplParser.T__5)
-                self.state = 17
+                self.state = 28
                 self.expr(0)
-                self.state = 18
+                self.state = 29
                 self.match(poplParser.T__6)
                 pass
             else:
                 raise NoViableAltException(self)
 
             self._ctx.stop = self._input.LT(-1)
-            self.state = 27
+            self.state = 38
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,4,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     if self._parseListeners is not None:
@@ -210,22 +251,22 @@ class poplParser ( Parser ):
                     _prevctx = localctx
                     localctx = poplParser.ExprContext(self, _parentctx, _parentState)
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
-                    self.state = 22
-                    if not self.precpred(self._ctx, 3):
+                    self.state = 33
+                    if not self.precpred(self._ctx, 4):
                         from antlr4.error.Errors import FailedPredicateException
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
-                    self.state = 23
+                        raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
+                    self.state = 34
                     _la = self._input.LA(1)
                     if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << poplParser.T__0) | (1 << poplParser.T__1) | (1 << poplParser.T__2) | (1 << poplParser.T__3) | (1 << poplParser.T__4))) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
-                    self.state = 24
-                    self.expr(4) 
-                self.state = 29
+                    self.state = 35
+                    self.expr(5) 
+                self.state = 40
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,4,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -271,16 +312,16 @@ class poplParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 30
+            self.state = 41
             self.match(poplParser.VAR)
-            self.state = 31
+            self.state = 42
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << poplParser.T__7) | (1 << poplParser.T__8) | (1 << poplParser.T__9) | (1 << poplParser.T__10) | (1 << poplParser.T__11))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
                 self.consume()
-            self.state = 32
+            self.state = 43
             self.expr(0)
         except RecognitionException as re:
             localctx.exception = re
@@ -304,7 +345,7 @@ class poplParser ( Parser ):
 
     def expr_sempred(self, localctx:ExprContext, predIndex:int):
             if predIndex == 0:
-                return self.precpred(self._ctx, 3)
+                return self.precpred(self._ctx, 4)
          
 
 

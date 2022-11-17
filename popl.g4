@@ -1,6 +1,7 @@
 grammar popl;
 
-start: (expr NEWLINE)* ;
+start: (expr NEWLINE)* 
+    | (assign NEWLINE)* ;
 INT: [0-9]+ ;
 
 expr: expr ('*' | '/' | '+' | '-' | '%') expr
