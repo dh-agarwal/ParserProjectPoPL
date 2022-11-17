@@ -18,6 +18,6 @@ assign: VAR ('=' | '+=' | '-=' | '*=' | '/=') expr;
 SPACE: ' '
 	| '\t';
 NEWLINE: '\n'
-    | [\r\n] ;
+    | '\r\n' ;
 
 IF: VAR ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') VAR;
