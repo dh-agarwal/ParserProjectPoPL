@@ -17,7 +17,7 @@ def main(argv):
     lexer = poplLexer(io_stream)
     tokens = CommonTokenStream(lexer)
     parser = poplParser(tokens)
-    tree = parser.hi()
+    tree = parser.start()
 
     print(tree.toStringTree(recog=parser))
     print(Trees.toStringTree(tree, None, parser))
