@@ -26,6 +26,15 @@ class poplListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by poplParser#fexpr.
+    def enterFexpr(self, ctx:poplParser.FexprContext):
+        pass
+
+    # Exit a parse tree produced by poplParser#fexpr.
+    def exitFexpr(self, ctx:poplParser.FexprContext):
+        pass
+
+
     # Enter a parse tree produced by poplParser#assign.
     def enterAssign(self, ctx:poplParser.AssignContext):
         pass

@@ -1,6 +1,6 @@
 grammar popl;
 
-start: (expr NEWLINE)* 
+start: (fexpr NEWLINE)* 
     | (assign NEWLINE)* ;
 INT: [0-9]+ ;
 
@@ -8,6 +8,8 @@ expr: expr ('*' | '/' | '+' | '-' | '%') expr
     | INT
     | VAR
     | '(' expr ')';
+
+fexpr: expr ('*' | '/' | '+' | '-' | '%') expr ;
 
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 
