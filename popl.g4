@@ -5,6 +5,7 @@ INT: [0-9]+ ;
 
 expr: expr ('*' | '/' | '+' | '-' | '%') expr
     | INT
+    | VAR
     | '(' expr ')';
 
 VAR: [a-zA-Z0-9]+;
