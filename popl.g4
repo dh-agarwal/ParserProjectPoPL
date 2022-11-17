@@ -8,7 +8,7 @@ expr: expr ('*' | '/' | '+' | '-' | '%') expr
     | VAR
     | '(' expr ')';
 
-VAR: [a-zA-Z0-9]+;
+VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 
 assign: VAR ('=' | '+=' | '-=' | '*=' | '/=') expr;
 NEWLINE: [\n]+
