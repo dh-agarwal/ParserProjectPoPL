@@ -6,10 +6,11 @@ line: assign line
     | expr line
     | NEWLINE line
     | EMPTYLINE line
-    | IF ('\t' line NEWLINE)*
+    | ifb ('\t' line NEWLINE)* line
     | SPACE* EOF;
 
 INT: [0-9]+ ;
+
 
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | INT
@@ -25,4 +26,4 @@ NEWLINE: '\n' | '\r\n';
 WHITESPACE: SPACE | NEWLINE;
 EMPTYLINE: SPACE* NEWLINE+;
 
-IF: VAR ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') VAR ':' NEWLINE;
+ifb: 'if' SPACE* (VAR | INT) SPACE* ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') SPACE* (VAR | INT) SPACE* ':' NEWLINE;
