@@ -1,26 +1,25 @@
 grammar popl;
 
+//KEYWORD: 'if';
+BOOLCOMP: 'and' | 'or';
 INT: [0-9]+;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
-NEWLINE: '\n' | '\r\n';
-WHITESPACE: SPACE | NEWLINE;
-EMPTYLINE: SPACE* NEWLINE+;
+//NEWLINE: '\n' | '\r\n';
+//WHITESPACE: SPACE | NEWLINE;
+EMPTYLINE: SPACE* ('\n' | '\r\n')+;
+MATHCOMP: '==' | '>=' | '<=' | '>' | '<' | '!=';
+
 
 start: line;
-
 line: assign line
     | expr line
-    | NEWLINE line // come back to this
     | EMPTYLINE line
     | ifblock elifblock* elseblock? line
     | SPACE* EOF;
 
-ifline: assign
-    | expr
-    | EMPTYLINE
-    | ifblock elifblock* elseblock?
-    | SPACE* EOF;
+conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP SPACE+) expr conditional
+    | /* epsilon */;
 
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | INT
@@ -29,12 +28,12 @@ expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
 
 assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr;
 
-ifbody: ('\t' (ifline) NEWLINE*)*;
-ifstatement: 'if' | SPACE* (VAR | INT) SPACE* ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') SPACE* (VAR | INT) SPACE* ':' NEWLINE;
+ifbody: ('\t' (assign | expr) NEWLINE*)*;
+ifstatement: 'if' SPACE+ expr conditional SPACE* ':' EMPTYLINE;
 ifblock: ifstatement ifbody;
 
-elifstatement: 'elif' | SPACE* (VAR | INT) SPACE* ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') SPACE* (VAR | INT) SPACE* ':' NEWLINE;
+elifstatement: 'elif' SPACE+ expr conditional SPACE* ':' EMPTYLINE;
 elifblock: elifstatement ifbody;
 
-elsestatement: 'else:' NEWLINE;
+elsestatement: 'else:' EMPTYLINE;
 elseblock: elsestatement ifbody;
