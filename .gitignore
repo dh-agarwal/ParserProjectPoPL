@@ -9,3 +9,6 @@ poplLexer.tokens
 poplLexer.py
 poplListener.py
 poplParser.py
+.idea/
+gen/
+.antlr/
