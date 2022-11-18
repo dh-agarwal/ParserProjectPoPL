@@ -6,7 +6,7 @@ line: assign line
     | expr line
     | NEWLINE line
     | EMPTYLINE line
-    | ifb ('\t' line NEWLINE)* line
+    | ifblock line
     | SPACE* EOF;
 
 INT: [0-9]+ ;
@@ -26,4 +26,6 @@ NEWLINE: '\n' | '\r\n';
 WHITESPACE: SPACE | NEWLINE;
 EMPTYLINE: SPACE* NEWLINE+;
 
-ifb: 'if' SPACE* (VAR | INT) SPACE* ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') SPACE* (VAR | INT) SPACE* ':' NEWLINE;
+ifbody: ('\t' (assign | expr) NEWLINE*)*;
+ifstatement: 'if' SPACE* (VAR | INT) SPACE* ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') SPACE* (VAR | INT) SPACE* ':' NEWLINE;
+ifblock: ifstatement ifbody;
