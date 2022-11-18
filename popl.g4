@@ -23,7 +23,7 @@ def nextToken(self):
     return self.denter.next_token()
 }
 
-NL: ('\r'? '\n' '\t'*);
+NL: ((' ' | '\t')* '\r'? '\n' '\t'*);
 
 NOT: 'not';
 BOOLCOMP: 'and' | 'or';
