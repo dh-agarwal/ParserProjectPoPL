@@ -13,6 +13,13 @@ line: assign line
     | expr line
     | NEWLINE line // come back to this
     | EMPTYLINE line
+    | ifblock elifblock* elseblock? line
+    | SPACE* EOF;
+
+ifline: assign
+    | expr
+    | EMPTYLINE
+    | ifblock elifblock* elseblock?
     | SPACE* EOF;
 
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
@@ -22,5 +29,12 @@ expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
 
 assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr;
 
+ifbody: ('\t' (ifline) NEWLINE*)*;
+ifstatement: 'if' | SPACE* (VAR | INT) SPACE* ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') SPACE* (VAR | INT) SPACE* ':' NEWLINE;
+ifblock: ifstatement ifbody;
 
-IF: VAR ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') VAR;
+elifstatement: 'elif' | SPACE* (VAR | INT) SPACE* ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') SPACE* (VAR | INT) SPACE* ':' NEWLINE;
+elifblock: elifstatement ifbody;
+
+elsestatement: 'else:' NEWLINE;
+elseblock: elsestatement ifbody;
