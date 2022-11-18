@@ -6,7 +6,13 @@ line: assign line
     | expr line
     | NEWLINE line
     | EMPTYLINE line
-    | ifblock line
+    | ifblock elifblock* elseblock? line
+    | SPACE* EOF;
+
+ifline: assign
+    | expr
+    | EMPTYLINE
+    | ifblock elifblock*
     | SPACE* EOF;
 
 INT: [0-9]+ ;
@@ -26,6 +32,12 @@ NEWLINE: '\n' | '\r\n';
 WHITESPACE: SPACE | NEWLINE;
 EMPTYLINE: SPACE* NEWLINE+;
 
-ifbody: ('\t' (assign | expr) NEWLINE*)*;
-ifstatement: 'if' SPACE* (VAR | INT) SPACE* ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') SPACE* (VAR | INT) SPACE* ':' NEWLINE;
+ifbody: ('\t' (ifline) NEWLINE*)*;
+ifstatement: 'if' | SPACE* (VAR | INT) SPACE* ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') SPACE* (VAR | INT) SPACE* ':' NEWLINE;
 ifblock: ifstatement ifbody;
+
+elifstatement: 'if' | SPACE* (VAR | INT) SPACE* ('==' | '>=' | '<=' | '>' | '<' | '!=' | 'and' | 'or' | 'not') SPACE* (VAR | INT) SPACE* ':' NEWLINE;
+elifblock: elifstatement ifbody;
+
+elsestatement: 'else:' NEWLINE;
+elseblock: elsestatement ifbody;
