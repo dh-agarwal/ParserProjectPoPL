@@ -19,7 +19,7 @@ line: assign line
 ifline: assign
     | expr
     | EMPTYLINE
-    | ifblock elifblock*
+    | ifblock elifblock* elseblock?
     | SPACE* EOF;
 
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
