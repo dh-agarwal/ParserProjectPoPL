@@ -1,8 +1,10 @@
 grammar popl;
 
-start: start expr (NEWLINE | EOF)
-    | start assign (NEWLINE | EOF)
-    | start EMPTYLINE
+start: line EOF;
+
+line: line expr (NEWLINE | )
+    | line assign (NEWLINE | )
+    | line EMPTYLINE
     | /* epsilon */;
 INT: [0-9]+ ;
 
