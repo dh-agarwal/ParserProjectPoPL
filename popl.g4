@@ -1,6 +1,6 @@
 grammar popl;
 
-start: line EOF;
+start: line;
 
 line: assign line
     | expr line
@@ -8,11 +8,6 @@ line: assign line
     | EMPTYLINE line
     | SPACE* EOF;
 
-linef: EMPTYLINE line
-    | line expr (NEWLINE)
-    | line assign (NEWLINE)
-
-    | /* epsilon */;
 INT: [0-9]+ ;
 
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
