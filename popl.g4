@@ -57,13 +57,13 @@ expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
 assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr;
 
 body: statement+;
-ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':';
+ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
 ifblock: ifstatement INDENT body DEDENT;
 
-elifstatement: 'elif' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':';
+elifstatement: 'elif' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
 elifblock: elifstatement INDENT body DEDENT;
 
-elsestatement: 'else' SPACE* ':';
+elsestatement: 'else' SPACE* ':' SPACE*;
 elseblock: elsestatement INDENT body DEDENT;
 
 // look into WS
