@@ -67,3 +67,5 @@ elsestatement: 'else' SPACE* ':' SPACE*;
 elseblock: elsestatement INDENT body DEDENT;
 
 // look into WS
+whilestatement: 'while' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
+whileblock: whilestatement INDENT body DEDENT;
