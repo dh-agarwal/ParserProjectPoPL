@@ -36,12 +36,14 @@ INT: [0-9]+;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
 EMPTYLINE: SPACE* NL+;
-COMMENT:  '#' (~[NL])*;
+COMMENT:  '#' (~'\n')+ NL+;
+MULTILINECOMMENT: ('"""' .*? '"""')+ NL+ | ('\'\'\'' .*? '\'\'\'')+ NL+ ;
 
 start: statement*;
 
 statement: assign SPACE* NL
     | COMMENT
+    | MULTILINECOMMENT
     | EMPTYLINE
     | expr SPACE* NL
     | ifblock elifblock* elseblock?
