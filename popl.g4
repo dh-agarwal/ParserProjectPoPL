@@ -37,13 +37,6 @@ VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
 EMPTYLINE: SPACE* NL+;
 
-// start: line;
-// line: assign line
-//     | expr line
-//     | EMPTYLINE line
-//     | ifblock elifblock* elseblock? line
-//     | SPACE* EOF;
-
 start: statement+ EOF;
 
 statement: assign SPACE* NL
