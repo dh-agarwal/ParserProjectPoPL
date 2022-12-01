@@ -1,7 +1,11 @@
+// Python Parser Project
+// By Dhruv Agarwal, Andrew Chang, Ryan Huynh, Adi Pillai, and Ashwin Prayaga
+
 grammar popl;
 
 tokens { INDENT, DEDENT }
 
+// Lexer code
 @lexer::header{
 from antlr_denter.DenterHelper import DenterHelper
 from poplParser import poplParser
@@ -46,17 +50,22 @@ statement: assign SPACE* NL
     | expr SPACE* NL
     | ifblock elifblock* elseblock?;
 
-conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPACE+)) expr conditional
-    | /* epsilon */;
-
+// Arithmetic operators
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | INT
     | VAR
     | '(' expr ')';
 
+// Assignment operators
 assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr;
 
+// Conditional statements
+conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPACE+)) expr conditional
+    | /* epsilon */;
+
 body: statement+;
+
+// if, elif, else, while, and for
 ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
 ifblock: ifstatement INDENT body DEDENT;
 
@@ -66,6 +75,5 @@ elifblock: elifstatement INDENT body DEDENT;
 elsestatement: 'else' SPACE* ':' SPACE*;
 elseblock: elsestatement INDENT body DEDENT;
 
-// look into WS
 whilestatement: 'while' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
 whileblock: whilestatement INDENT body DEDENT;
