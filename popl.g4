@@ -40,6 +40,7 @@ EMPTYLINE: SPACE* NL+;
 start: statement+ EOF;
 
 statement: assign SPACE* NL
+    | EMPTYLINE
     | expr SPACE* NL
     | ifblock elifblock* elseblock?
     | whileblock
@@ -55,7 +56,8 @@ expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
 assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr;
 
 // Conditional statements
-conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPACE+)) expr conditional
+conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPACE+)) expr conditional;
+forconditional: VAR SPACE* 'in' SPACE* VAR 
     | /* epsilon */;
 
 body: statement+;
@@ -73,5 +75,5 @@ elseblock: elsestatement INDENT body DEDENT;
 whilestatement: 'while' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
 whileblock: whilestatement INDENT body DEDENT;
 
-forstatement: 'for' SPACE+ expr conditional SPACE* ':' SPACE*;
+forstatement: 'for' SPACE+ forconditional SPACE* ':' SPACE*;
 forblock: forstatement INDENT body DEDENT;
