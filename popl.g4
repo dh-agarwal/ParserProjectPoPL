@@ -30,7 +30,7 @@ def nextToken(self):
 NL: ((' ' | '\t')* '\r'? '\n' '\t'*);
 
 NOT: 'not';
-BOOLCOMP: 'and' | 'or';
+BOOLCOMP: 'and' | 'or' | 'in';
 MATHCOMP: '==' | '>=' | '<=' | '>' | '<' | '!=';
 INT: [0-9]+;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
@@ -41,7 +41,9 @@ start: statement+ EOF;
 
 statement: assign SPACE* NL
     | expr SPACE* NL
-    | ifblock elifblock* elseblock?;
+    | ifblock elifblock* elseblock?
+    | whileblock
+    | forblock;
 
 // Arithmetic operators
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
@@ -70,3 +72,6 @@ elseblock: elsestatement INDENT body DEDENT;
 
 whilestatement: 'while' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
 whileblock: whilestatement INDENT body DEDENT;
+
+forstatement: 'for' SPACE+ expr conditional SPACE* ':' SPACE*;
+forblock: forstatement INDENT body DEDENT;
