@@ -42,10 +42,12 @@ MULTILINECOMMENT: ('"""' .*? '"""')+ NL+ | ('\'\'\'' .*? '\'\'\'')+ NL+ ;
 start: statement*;
 
 statement: assign SPACE* NL
+    | assign SPACE* COMMENT
     | COMMENT
     | MULTILINECOMMENT
     | EMPTYLINE
     | expr SPACE* NL
+    | expr SPACE* COMMENT
     | ifblock elifblock* elseblock?
     | whileblock
     | forblock;
