@@ -35,23 +35,21 @@ MATHCOMP: '==' | '>=' | '<=' | '>' | '<' | '!=';
 INT: [0-9]+;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
-EMPTYLINE: SPACE* NL+;
-//COMMENT:  '#' (~'\n')+ NL+ | '#' (~'\n')+ EOF | '#' (~'\n')+ ;
 COMMENT:  '#' (~'\n')+;
-MULTILINECOMMENT: ('"""' .*? '"""')+ NL+ | ('"""' .*? '"""')+ EOF | ('\'\'\'' .*? '\'\'\'')+ NL+ | ('\'\'\'' .*? '\'\'\'')+ EOF ;
+MULTILINECOMMENT: ('"""' .*? '"""')+ | ('\'\'\'' .*? '\'\'\'')+ ;
 
-start: statement*;
+start: statement* EOF;
 
-statement: assign SPACE* NL
-    | assign SPACE* COMMENT NL
+statement: assign NL
+    | assign COMMENT NL
+    | expr NL
+    | expr COMMENT NL
     | COMMENT NL
-    | MULTILINECOMMENT
-    | EMPTYLINE
-    | expr SPACE* NL
-    | expr SPACE* COMMENT NL
+    | MULTILINECOMMENT NL
     | ifblock elifblock* elseblock?
     | whileblock
-    | forblock;
+    | forblock
+    | NL;
 
 // Arithmetic operators
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
@@ -70,17 +68,17 @@ forconditional: VAR SPACE* 'in' SPACE* VAR;
 body: statement+ COMMENT*;
 
 // if, elif, else, while, and for
-ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT*;
+ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
 ifblock: ifstatement INDENT body DEDENT;
 
-elifstatement: 'elif' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT*;
+elifstatement: 'elif' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
 elifblock: elifstatement INDENT body DEDENT;
 
 elsestatement: 'else' SPACE* ':' SPACE* COMMENT*;
 elseblock: elsestatement INDENT body DEDENT;
 
-whilestatement: 'while' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
+whilestatement: 'while' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
 whileblock: whilestatement INDENT body DEDENT;
 
-forstatement: 'for' SPACE+ forconditional SPACE* ':' SPACE*;
+forstatement: 'for' SPACE+ forconditional SPACE* ':' SPACE* COMMENT?;
 forblock: forstatement INDENT body DEDENT;
