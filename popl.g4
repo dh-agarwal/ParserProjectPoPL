@@ -58,7 +58,7 @@ expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | '(' expr ')';
 
 // Assignment operators
-assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr COMMENT?;
+assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr;
 
 // Conditional statements
 conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPACE+)) expr conditional
