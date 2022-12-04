@@ -36,18 +36,19 @@ INT: [0-9]+;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
 EMPTYLINE: SPACE* NL+;
-COMMENT:  '#' (~'\n')+ NL+ | '#' (~'\n')+ EOF | '#' (~'\n')+ ;
+//COMMENT:  '#' (~'\n')+ NL+ | '#' (~'\n')+ EOF | '#' (~'\n')+ ;
+COMMENT:  '#' (~'\n')+;
 MULTILINECOMMENT: ('"""' .*? '"""')+ NL+ | ('"""' .*? '"""')+ EOF | ('\'\'\'' .*? '\'\'\'')+ NL+ | ('\'\'\'' .*? '\'\'\'')+ EOF ;
 
 start: statement*;
 
 statement: assign SPACE* NL
-    | assign SPACE* COMMENT
-    | COMMENT
+    | assign SPACE* COMMENT NL
+    | COMMENT NL
     | MULTILINECOMMENT
     | EMPTYLINE
     | expr SPACE* NL
-    | expr SPACE* COMMENT
+    | expr SPACE* COMMENT NL
     | ifblock elifblock* elseblock?
     | whileblock
     | forblock;
