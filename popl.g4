@@ -36,7 +36,7 @@ INT: [0-9]+;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
 EMPTYLINE: SPACE* NL+;
-COMMENT:  '#' (~'\n')+ NL+;
+COMMENT:  '#' (~'\n')+ NL+ | '#' (~'\n')+ EOF;
 MULTILINECOMMENT: ('"""' .*? '"""')+ NL+ | ('\'\'\'' .*? '\'\'\'')+ NL+ ;
 
 start: statement*;
@@ -57,7 +57,7 @@ expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | '(' expr ')';
 
 // Assignment operators
-assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr;
+assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr COMMENT*;
 
 // Conditional statements
 conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPACE+)) expr conditional
