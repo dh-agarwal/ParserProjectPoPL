@@ -47,8 +47,8 @@ statement: assign NL
     | COMMENT NL
     | MULTILINECOMMENT NL
     | ifblock elifblock* elseblock?
-    | whileblock
-    | forblock
+    | whileblock elseblock?
+    | forblock elseblock?
     | NL;
 
 // Arithmetic operators
