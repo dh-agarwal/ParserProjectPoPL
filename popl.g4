@@ -36,18 +36,20 @@ INT: [0-9]+;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
 EMPTYLINE: SPACE* NL+;
-COMMENT:  '#' (~'\n')+ NL+ | '#' (~'\n')+ EOF;
-MULTILINECOMMENT: ('"""' .*? '"""')+ NL+ | ('\'\'\'' .*? '\'\'\'')+ NL+ ;
+COMMENT:  '#' (~'\n')+ NL+ | '#' (~'\n')+ EOF | '#' (~'\n')+ ;
+MULTILINECOMMENT: ('"""' .*? '"""')+ NL+ | ('"""' .*? '"""')+ EOF | ('\'\'\'' .*? '\'\'\'')+ NL+ | ('\'\'\'' .*? '\'\'\'')+ EOF ;
 
 start: statement*;
 
 statement: assign SPACE* NL
     | assign SPACE* COMMENT
+    | assign SPACE* MULTILINECOMMENT
     | COMMENT
     | MULTILINECOMMENT
     | EMPTYLINE
     | expr SPACE* NL
     | expr SPACE* COMMENT
+    | expr SPACE* MULTILINECOMMENT
     | ifblock elifblock* elseblock?
     | whileblock
     | forblock;
@@ -66,16 +68,16 @@ conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPAC
     | /* epsilon */;
 forconditional: VAR SPACE* 'in' SPACE* VAR;
 
-body: statement+;
+body: statement+ COMMENT*;
 
 // if, elif, else, while, and for
-ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
+ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT*;
 ifblock: ifstatement INDENT body DEDENT;
 
-elifstatement: 'elif' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
+elifstatement: 'elif' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT*;
 elifblock: elifstatement INDENT body DEDENT;
 
-elsestatement: 'else' SPACE* ':' SPACE*;
+elsestatement: 'else' SPACE* ':' SPACE* COMMENT*;
 elseblock: elsestatement INDENT body DEDENT;
 
 whilestatement: 'while' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE*;
