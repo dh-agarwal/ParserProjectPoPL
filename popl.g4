@@ -43,13 +43,11 @@ start: statement*;
 
 statement: assign SPACE* NL
     | assign SPACE* COMMENT
-    | assign SPACE* MULTILINECOMMENT
     | COMMENT
     | MULTILINECOMMENT
     | EMPTYLINE
     | expr SPACE* NL
     | expr SPACE* COMMENT
-    | expr SPACE* MULTILINECOMMENT
     | ifblock elifblock* elseblock?
     | whileblock
     | forblock;
