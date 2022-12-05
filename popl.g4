@@ -50,6 +50,7 @@ statement: assign NL
     | whileblock elseblock?
     | forblock elseblock?
     | funcblock
+    | funccall
     | NL;
 
 // Arithmetic operators
@@ -88,3 +89,6 @@ forblock: forstatement INDENT body DEDENT;
 args: (VAR | INT) (SPACE* ',' SPACE* (VAR | INT))*;
 funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
 funcblock: funcstatement INDENT body DEDENT;
+
+// Function calls
+funccall: VAR SPACE* '(' args ')' SPACE* COMMENT?;
