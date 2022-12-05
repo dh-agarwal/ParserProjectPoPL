@@ -85,6 +85,6 @@ forstatement: 'for' SPACE+ forconditional SPACE* ':' SPACE* COMMENT?;
 forblock: forstatement INDENT body DEDENT;
 
 // Function implementations
-args: VAR (SPACE* ',' SPACE* VAR)*;
+args: (VAR | INT) (SPACE* ',' SPACE* (VAR | INT))*;
 funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
 funcblock: funcstatement INDENT body DEDENT;
