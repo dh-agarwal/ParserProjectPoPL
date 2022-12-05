@@ -49,6 +49,7 @@ statement: assign NL
     | ifblock elifblock* elseblock?
     | whileblock elseblock?
     | forblock elseblock?
+    | funcblock
     | NL;
 
 // Arithmetic operators
@@ -82,3 +83,8 @@ whileblock: whilestatement INDENT body DEDENT;
 
 forstatement: 'for' SPACE+ forconditional SPACE* ':' SPACE* COMMENT?;
 forblock: forstatement INDENT body DEDENT;
+
+// Function implementations
+args: VAR (SPACE* ',' SPACE* VAR)*;
+funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
+funcblock: funcstatement INDENT body DEDENT;
