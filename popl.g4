@@ -92,8 +92,8 @@ forblock: forstatement INDENT (return_in_body NL)* body* DEDENT;
 // Function implementations
 args: (SPACE* VAR SPACE* (',' SPACE* VAR SPACE*)*)*;
 funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
-funcreturn: 'return' SPACE* expr SPACE* COMMENT?;
-funcbody: (statement | funcreturn)+;
+return_in_body: 'return' SPACE* expr SPACE* COMMENT?;
+funcbody: (statement | return_in_body)+;
 funcblock: funcstatement INDENT funcbody DEDENT;
 
 
@@ -102,7 +102,6 @@ callargs: (SPACE* expr SPACE* (',' SPACE* expr SPACE*)*)*;
 funccall: VAR SPACE* '(' callargs ')' SPACE* COMMENT?;
 
 // Function returns for loops and conditionals
-return_in_body: 'return' SPACE* expr SPACE* COMMENT?;
 
 reserved:
      'False' | 'def' | 'if' | 'raise'
