@@ -69,7 +69,7 @@ conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPAC
     | /* epsilon */;
 forconditional: VAR SPACE* 'in' SPACE* VAR;
 
-body: statement+ ;
+body: statement+ | return_in_body;
 
 
 // if, elif, else, while, and for
