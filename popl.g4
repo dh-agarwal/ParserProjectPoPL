@@ -41,9 +41,7 @@ MULTILINECOMMENT: ('"""' .*? '"""')+ | ('\'\'\'' .*? '\'\'\'')+ ;
 start: statement* EOF;
 
 statement: assign NL
-    | assign COMMENT NL
     | expr NL
-    | expr COMMENT NL
     | COMMENT NL
     | MULTILINECOMMENT NL
     | ifblock elifblock* elseblock?
@@ -55,21 +53,20 @@ statement: assign NL
     | NL;
 
 // Arithmetic operators
-expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
+expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr SPACE* COMMENT?
     | INT
     | VAR
     | '(' expr ')';
 
 // Assignment operators
-assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr;
+assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr SPACE* COMMENT?;
 
 // Conditional statements
 conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPACE+)) expr conditional
     | /* epsilon */;
 forconditional: VAR SPACE* 'in' SPACE* VAR;
 
-bodycomment: COMMENT NL;
-body: statement+ bodycomment?;
+body: statement+ ;
 
 // if, elif, else, while, and for
 ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;

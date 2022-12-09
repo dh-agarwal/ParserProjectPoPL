@@ -2,6 +2,7 @@
 __pycache__
 .DS_Store
 test.txt
+test - Copy.txt
 popl.interp
 popl.tokens
 poplLexer.interp
