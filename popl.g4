@@ -51,14 +51,13 @@ statement: assign NL
     | forblock elseblock?
     | funcblock
     | funccall
+    | funcreturn
     | NL;
 
 // Arithmetic operators
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | INT
     | VAR
-    | 'return' SPACE* INT
-    | 'return' SPACE* VAR
     | '(' expr ')';
 
 // Assignment operators
@@ -90,6 +89,7 @@ forblock: forstatement INDENT body DEDENT;
 // Function implementations
 args: ((VAR | INT) (SPACE* ',' SPACE* (VAR | INT))*)*;
 funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
+funcreturn: 'return' SPACE* expr SPACE* COMMENT?;
 funcblock: funcstatement INDENT body DEDENT;
 
 // Function calls
