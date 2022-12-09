@@ -28,12 +28,12 @@ def nextToken(self):
 }
 
 NL: ((' ' | '\t')* '\r'? '\n' '\t'*);
-
 NOT: 'not';
 BOOLCOMP: 'and' | 'or' | 'in';
 MATHCOMP: '==' | '>=' | '<=' | '>' | '<' | '!=';
 INT: [0-9]+;
-STRING: '"' .*? '"';
+QUOTES: '"' | '\'';
+STRING: QUOTES .*? QUOTES;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
 COMMENT:  '#' (~'\n')*;
