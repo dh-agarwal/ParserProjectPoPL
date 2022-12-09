@@ -74,19 +74,19 @@ body: statement+ ;
 
 // if, elif, else, while, and for
 ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
-ifblock: ifstatement INDENT body DEDENT;
+ifblock: ifstatement INDENT (return_in_body NL)* body* DEDENT;
 
 elifstatement: 'elif' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
-elifblock: elifstatement INDENT body DEDENT;
+elifblock: elifstatement INDENT (return_in_body NL)* body* DEDENT;
 
 elsestatement: 'else' SPACE* ':' SPACE* COMMENT*;
-elseblock: elsestatement INDENT body DEDENT;
+elseblock: elsestatement INDENT (return_in_body NL)* body* DEDENT;
 
 whilestatement: 'while' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
-whileblock: whilestatement INDENT body DEDENT;
+whileblock: whilestatement INDENT (return_in_body NL)* body* DEDENT;
 
 forstatement: 'for' SPACE+ forconditional SPACE* ':' SPACE* COMMENT?;
-forblock: forstatement INDENT body DEDENT;
+forblock: forstatement INDENT (return_in_body NL)* body* DEDENT;
 
 
 // Function implementations
@@ -101,6 +101,8 @@ funcblock: funcstatement INDENT funcbody DEDENT;
 callargs: (SPACE* expr SPACE* (',' SPACE* expr SPACE*)*)*;
 funccall: VAR SPACE* '(' callargs ')' SPACE* COMMENT?;
 
+// Function returns for loops and conditionals
+return_in_body: 'return' SPACE* expr SPACE* COMMENT?;
 
 reserved:
      'False' | 'def' | 'if' | 'raise'
