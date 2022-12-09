@@ -40,17 +40,24 @@ MULTILINECOMMENT: ('"""' .*? '"""')+ | ('\'\'\'' .*? '\'\'\'')+ ;
 
 start: statement* EOF;
 
-statement: assign NL
+basestatement: assign NL
     | expr NL
     | COMMENT NL
     | MULTILINECOMMENT NL
-    | ifblock elifblock* elseblock?
-    | whileblock elseblock?
-    | forblock elseblock?
     | funcblock
     | funccall
     | NL;
 
+statement: basestatement
+    | ifblock elifblock* elseblock?
+    | whileblock elseblock?
+    | forblock elseblock?;
+
+funcstatement: basestatement
+    | funcifblock funcelifblock* funcelseblock?
+    | funcwhileblock funcelseblock?
+    | funcforblock funcelseblock?
+    | funcreturn;
 
 // Arithmetic operators
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr SPACE* COMMENT?
@@ -59,10 +66,8 @@ expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr SPACE* COMMENT?
     | VAR
     | '(' expr ')';
 
-
 // Assignment operators
 assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr SPACE* COMMENT?;
-
 
 // Conditional statements
 conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPACE+)) expr conditional
@@ -70,31 +75,35 @@ conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPAC
 forconditional: VAR SPACE* 'in' SPACE* VAR;
 
 body: statement+ ;
-
+funcbody: funcstatement+ ;
 
 // if, elif, else, while, and for
 ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
-ifblock: ifstatement INDENT (return_in_body NL)* body* DEDENT;
+ifblock: ifstatement INDENT body DEDENT;
+funcifblock: ifstatement INDENT funcbody DEDENT;
 
 elifstatement: 'elif' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
-elifblock: elifstatement INDENT (return_in_body NL)* body* DEDENT;
+elifblock: elifstatement INDENT body DEDENT;
+funcelifblock: elifstatement INDENT funcbody DEDENT;
 
 elsestatement: 'else' SPACE* ':' SPACE* COMMENT*;
-elseblock: elsestatement INDENT (return_in_body NL)* body* DEDENT;
+elseblock: elsestatement INDENT body DEDENT;
+funcelseblock: elsestatement INDENT funcbody DEDENT;
 
 whilestatement: 'while' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
-whileblock: whilestatement INDENT (return_in_body NL)* body* DEDENT;
+whileblock: whilestatement INDENT body DEDENT;
+funcwhileblock: whilestatement INDENT funcbody DEDENT;
 
 forstatement: 'for' SPACE+ forconditional SPACE* ':' SPACE* COMMENT?;
-forblock: forstatement INDENT (return_in_body NL)* body* DEDENT;
+forblock: forstatement INDENT body DEDENT;
+funcforblock: forstatement INDENT funcbody DEDENT;
 
 
 // Function implementations
 args: (SPACE* VAR SPACE* (',' SPACE* VAR SPACE*)*)*;
-funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
-return_in_body: 'return' SPACE* expr SPACE* COMMENT?;
-funcbody: (statement | return_in_body)+;
-funcblock: funcstatement INDENT funcbody DEDENT;
+funcdefinition: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
+funcreturn: 'return' SPACE* expr? SPACE* COMMENT?;
+funcblock: funcdefinition INDENT funcbody DEDENT;
 
 
 // Function calls
