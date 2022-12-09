@@ -32,7 +32,8 @@ NOT: 'not';
 BOOLCOMP: 'and' | 'or' | 'in';
 MATHCOMP: '==' | '>=' | '<=' | '>' | '<' | '!=';
 INT: [0-9]+;
-STRING: ('"' .*? '"' ) | ('\'' .*? '\'') | ('"""' .*? '"""');
+QUOTES: '"' | '\'';
+STRING: QUOTES .*? QUOTES;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
 COMMENT:  '#' (~'\n')*;
@@ -70,7 +71,6 @@ conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPAC
 forconditional: VAR SPACE* 'in' SPACE* VAR;
 
 body: statement+ ;
-
 
 // if, elif, else, while, and for
 ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
