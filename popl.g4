@@ -53,6 +53,7 @@ statement: assign NL
     | funccall
     | NL;
 
+
 // Arithmetic operators
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | INT
@@ -60,6 +61,7 @@ expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | 'return' SPACE* INT
     | 'return' SPACE* VAR
     | '(' expr ')';
+
 
 // Assignment operators
 assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr;
@@ -70,6 +72,7 @@ conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPAC
 forconditional: VAR SPACE* 'in' SPACE* VAR;
 
 body: statement+ COMMENT*;
+
 
 // if, elif, else, while, and for
 ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
@@ -87,10 +90,23 @@ whileblock: whilestatement INDENT body DEDENT;
 forstatement: 'for' SPACE+ forconditional SPACE* ':' SPACE* COMMENT?;
 forblock: forstatement INDENT body DEDENT;
 
+
 // Function implementations
 args: ((VAR | INT) (SPACE* ',' SPACE* (VAR | INT))*)*;
 funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
 funcblock: funcstatement INDENT body DEDENT;
 
+
 // Function calls
 funccall: VAR SPACE* '(' args ')' SPACE* COMMENT?;
+
+
+reserved:
+     'False' | 'def' | 'if' | 'raise'
+    | 'None' | 'del' | 'import' | 'return' | 'True'
+    | 'elif' | 'in' | 'try' | 'and' | 'else'
+    | 'is'| 'while' | 'as'
+    | 'except' | 'lambda' | 'with' | 'assert' 
+    | 'finally' | 'nonlocal' | 'yield' | 'break'
+    | 'for' | 'not'| 'class' | 'from' | 'or'
+    | 'continue' | 'global' | 'pass';
