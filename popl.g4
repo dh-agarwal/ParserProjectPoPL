@@ -42,11 +42,9 @@ start: statement* EOF;
 
 basestatement: assign NL
     | expr NL
-    | COMMENT NL
     | MULTILINECOMMENT NL
     | funcblock
-    | funccall
-    | NL;
+    | funccall;
 
 statement: basestatement
     | ifblock elifblock* elseblock?
@@ -73,8 +71,8 @@ conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPAC
     | /* epsilon */;
 forconditional: VAR SPACE* 'in' SPACE* VAR;
 
-body: statement+ ;
-funcbody: funcstatement+ ;
+body: (statement | NL | COMMENT NL)* statement (statement | NL | COMMENT NL)* ;
+funcbody: (funcstatement | NL | COMMENT NL)* funcstatement (funcstatement | NL | COMMENT NL)* ;
 
 // if, elif, else, while, and for
 ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
