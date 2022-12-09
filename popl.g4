@@ -94,7 +94,8 @@ forblock: forstatement INDENT body DEDENT;
 args: (SPACE* VAR SPACE* (',' SPACE* VAR SPACE*)*)*;
 funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
 funcreturn: 'return' SPACE* expr SPACE* COMMENT?;
-funcblock: funcstatement INDENT body DEDENT;
+funcbody: (statement | funcreturn)+;
+funcblock: funcstatement INDENT funcbody DEDENT;
 
 
 // Function calls
