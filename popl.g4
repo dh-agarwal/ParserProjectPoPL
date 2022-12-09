@@ -35,7 +35,7 @@ MATHCOMP: '==' | '>=' | '<=' | '>' | '<' | '!=';
 INT: [0-9]+;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
-COMMENT:  '#' (~'\n')+;
+COMMENT:  '#' (~'\n')*;
 MULTILINECOMMENT: ('"""' .*? '"""')+ | ('\'\'\'' .*? '\'\'\'')+ ;
 
 start: statement* EOF;
@@ -51,6 +51,7 @@ statement: assign NL
     | forblock elseblock?
     | funcblock
     | funccall
+    | funcreturn
     | NL;
 
 
@@ -58,20 +59,20 @@ statement: assign NL
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | INT
     | VAR
-    | 'return' SPACE* INT
-    | 'return' SPACE* VAR
     | '(' expr ')';
 
 
 // Assignment operators
 assign: VAR SPACE* ('=' | '+=' | '-=' | '*=' | '/=') SPACE* expr;
 
+
 // Conditional statements
 conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPACE+)) expr conditional
     | /* epsilon */;
 forconditional: VAR SPACE* 'in' SPACE* VAR;
 
-body: statement+ COMMENT*;
+bodycomment: COMMENT NL;
+body: statement+ bodycomment?;
 
 
 // if, elif, else, while, and for
@@ -94,6 +95,7 @@ forblock: forstatement INDENT body DEDENT;
 // Function implementations
 args: ((VAR | INT) (SPACE* ',' SPACE* (VAR | INT))*)*;
 funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
+funcreturn: 'return' SPACE* expr SPACE* COMMENT?;
 funcblock: funcstatement INDENT body DEDENT;
 
 
