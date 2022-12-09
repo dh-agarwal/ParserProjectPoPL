@@ -33,6 +33,7 @@ NOT: 'not';
 BOOLCOMP: 'and' | 'or' | 'in';
 MATHCOMP: '==' | '>=' | '<=' | '>' | '<' | '!=';
 INT: [0-9]+;
+STRING: '"' .*? '"';
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
 COMMENT:  '#' (~'\n')*;
@@ -56,6 +57,7 @@ statement: assign NL
 // Arithmetic operators
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr SPACE* COMMENT?
     | INT
+    | STRING
     | VAR
     | '(' expr ')';
 
@@ -89,7 +91,7 @@ forblock: forstatement INDENT body DEDENT;
 
 
 // Function implementations
-args: ((VAR | INT) (SPACE* ',' SPACE* (VAR | INT))*)*;
+args: ((VAR | INT | STRING) (SPACE* ',' SPACE* (VAR | INT | STRING))*)*;
 funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
 funcreturn: 'return' SPACE* expr SPACE* COMMENT?;
 funcblock: funcstatement INDENT body DEDENT;
