@@ -32,7 +32,7 @@ NOT: 'not';
 BOOLCOMP: 'and' | 'or' | 'in';
 MATHCOMP: '==' | '>=' | '<=' | '>' | '<' | '!=';
 INT: [0-9]+;
-STRING: ('"' .*? '"' ) | ('\'' .*? '\'') | ('"""' .*? '"""');
+// STRING: ('"' .*? '"' ) | ('\'' .*? '\'') | ('"""' .*? '"""');
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
 COMMENT:  '#' (~'\n')*;
@@ -55,7 +55,6 @@ statement: assign NL
 // Arithmetic operators
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr SPACE* COMMENT?
     | INT
-    | STRING
     | VAR
     | '(' expr ')';
 
