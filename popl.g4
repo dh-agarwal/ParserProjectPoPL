@@ -50,7 +50,6 @@ statement: assign NL
     | forblock elseblock?
     | funcblock
     | funccall
-    | funcreturn
     | NL;
 
 
