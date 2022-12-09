@@ -57,6 +57,8 @@ statement: assign NL
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr
     | INT
     | VAR
+    | 'return' SPACE* INT
+    | 'return' SPACE* VAR
     | '(' expr ')';
 
 // Assignment operators
