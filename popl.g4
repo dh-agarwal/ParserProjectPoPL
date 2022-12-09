@@ -35,7 +35,7 @@ MATHCOMP: '==' | '>=' | '<=' | '>' | '<' | '!=';
 INT: [0-9]+;
 VAR: [a-zA-Z_][a-zA-Z0-9_]*;
 SPACE: ' ' | '\t';
-COMMENT:  '#' (~'\n')+;
+COMMENT:  '#' (~'\n')*;
 MULTILINECOMMENT: ('"""' .*? '"""')+ | ('\'\'\'' .*? '\'\'\'')+ ;
 
 start: statement* EOF;
@@ -68,7 +68,8 @@ conditional: (SPACE* MATHCOMP SPACE* | SPACE+ BOOLCOMP (SPACE+ | SPACE+ NOT SPAC
     | /* epsilon */;
 forconditional: VAR SPACE* 'in' SPACE* VAR;
 
-body: statement+ COMMENT*;
+bodycomment: COMMENT NL;
+body: statement+ bodycomment?;
 
 // if, elif, else, while, and for
 ifstatement: 'if' SPACE+ (NOT SPACE+)? expr conditional SPACE* ':' SPACE* COMMENT?;
