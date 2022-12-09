@@ -91,14 +91,15 @@ forblock: forstatement INDENT body DEDENT;
 
 
 // Function implementations
-args: ((VAR | INT | STRING) (SPACE* ',' SPACE* (VAR | INT | STRING))*)*;
+args: (SPACE* VAR SPACE* (',' SPACE* VAR SPACE*)*)*;
 funcstatement: 'def' SPACE+ VAR SPACE* '(' args ')' SPACE* ':' SPACE* COMMENT?;
 funcreturn: 'return' SPACE* expr SPACE* COMMENT?;
 funcblock: funcstatement INDENT body DEDENT;
 
 
 // Function calls
-funccall: VAR SPACE* '(' args ')' SPACE* COMMENT?;
+callargs: (SPACE* expr SPACE* (',' SPACE* expr SPACE*)*)*;
+funccall: VAR SPACE* '(' callargs ')' SPACE* COMMENT?;
 
 
 reserved:
