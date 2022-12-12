@@ -5,26 +5,22 @@ grammar popl;
 
 tokens { INDENT, DEDENT }
 
-// Lexer code
-@lexer::header{
-from antlr_denter.DenterHelper import DenterHelper
-from poplParser import poplParser
+// Lexer code for antlr-denter
+@lexer::header {
+  import com.yuvalshavit.antlr4.DenterHelper;
 }
+
 @lexer::members {
-class poplDenter(DenterHelper):
-    def __init__(self, lexer, nl_token, indent_token, dedent_token, ignore_eof):
-        super().__init__(nl_token, indent_token, dedent_token, ignore_eof)
-        self.lexer: poplLexer = lexer
+  private final DenterHelper denter = DenterHelper.builder()
+    .nl(NL)
+    .indent(poplParser.INDENT)
+    .dedent(poplParser.DEDENT)
+    .pullToken(poplLexer.super::nextToken);
 
-    def pull_token(self):
-        return super(poplLexer, self.lexer).nextToken()
-
-denter = None
-
-def nextToken(self):
-    if not self.denter:
-        self.denter = self.poplDenter(self, self.NL, poplParser.INDENT, poplParser.DEDENT, False)
-    return self.denter.next_token()
+  @Override
+  public Token nextToken() {
+    return denter.nextToken();
+  }
 }
 
 NL: ((' ' | '\t')* '\r'? '\n' '\t'*);
