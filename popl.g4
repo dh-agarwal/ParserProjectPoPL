@@ -43,6 +43,7 @@ basestatement: assign NL
     | funccall;
 
 statement: basestatement
+    | COMMENT NL
     | ifblock elifblock* elseblock?
     | whileblock elseblock?
     | forblock elseblock?;
