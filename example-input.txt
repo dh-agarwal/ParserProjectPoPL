@@ -1,0 +1,33 @@
+# Variable definition
+a = b + 1
+b = b * 2
+
+C = func(123)
+
+#asdb
+
+
+# If else statement
+if a >= 4: # Inline comment
+	a -= 1
+else:
+	a += 1
+
+# For loop
+for i in a_list:
+	print(i)
+
+# While loop
+count = 10
+while count < 10:
+	count += 1
+
+# Function definition
+def func2(): # Inline comment
+	"""
+	Multi-line comment
+	"""
+	b = 2
+	a = b
+	b = c
+	return a + b + c - d
