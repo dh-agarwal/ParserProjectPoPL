@@ -40,7 +40,7 @@ export CLASSPATH=".:/usr/local/lib/antlr-denter-1.1.jar:$CLASSPATH"
 
 5. Add alias for antlr4
 ```
-alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9.2-complete.jar:/usr/local/lib/antlr-denter-1.1.jar:$CLASSPATH"'
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 ```
 
 4. Add alias for grun
