@@ -6,3 +6,7 @@ alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9.2-complete.jar:$CLASSP
 alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr4.v4.gui.TestRig'
 
 antlr4 -Dlanguage=Python3 popl.g4
+
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9.2-complete.jar:/usr/local/lib/antlr-denter-1.2.jar:$CLASSPATH"
+
+alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9.2-complete.jar:/usr/local/lib/antlr-denter-1.2.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
