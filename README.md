@@ -10,8 +10,11 @@ We are implementing a basic Python parser using Java
 ANTLR4 version 4.9.2
 ANTLR-Denter (included in repo)
 
+## Pre-Installation Steps
+First, download or clone the GitHub repo.
+Second, open up a terminal in the same directory as the repo.
+
 ## ANTLR Installation and Setup
-First, download ANTLR version 4.9.2 [here](https://www.antlr.org/download/antlr-4.9.2-complete.jar).
 Add the ANTLR4 and Denter JAR files to your CLASSPATH. (Denter jar file can be moved to a different location than in the repo folder) 
 
 ### Instructions for Unix systems (Linux and MacOS)
@@ -20,19 +23,29 @@ Add the ANTLR4 and Denter JAR files to your CLASSPATH. (Denter jar file can be m
 sudo cp antlr-4.9.2-complete.jar /usr/local/lib
 ```
 
-2. Add the file to your bash profile
+2. Put the antlr-denter.jar in the correct directory
+```
+sudo cp antlr-denter-1.1.jar /usr/local/lib
+```
+
+3. Add the antlr-4.9.2-complete.jar file to your bash profile
 ```
 export CLASSPATH=".:/usr/local/lib/antlr-4.9.2-complete.jar:$CLASSPATH"
 ```
 
-3. Add alias for antlr4
+4. Add the antlr-denter-1.1.jar file to your bash profile
 ```
-alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+export CLASSPATH=".:/usr/local/lib/antlr-denter-1.1.jar:$CLASSPATH"
+```
+
+5. Add alias for antlr4
+```
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.9.2-complete.jar:/usr/local/lib/antlr-denter-1.1.jar:$CLASSPATH"'
 ```
 
 4. Add alias for grun
 ```
-alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9.2-complete.jar:$CLASSPATH" org.antlr4.v4.gui.TestRig'
+alias grun='java -Xmx500M -cp "/usr/local/lib/antlr-4.9.2-complete.jar:/usr/local/lib/antlr-denter-1.1.jar:$CLASSPATH" org.antlr.v4.gui.TestRig'
 ```
 
 ### Instructions for Windows systems
