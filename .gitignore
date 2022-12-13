@@ -1,5 +1,6 @@
 *.bat
 *.bak
+*.class
 __pycache__
 .DS_Store
 test.txt
