@@ -57,6 +57,7 @@ funcstatement: basestatement
 expr: expr SPACE* ('*' | '/' | '+' | '-' | '%') SPACE* expr SPACE* COMMENT?
     | INT
     | VAR
+    | STRING
     | funccall
     | '(' expr ')';
 
