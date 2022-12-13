@@ -74,8 +74,14 @@ antlr4 -Dlanguage=Java popl.g4
 javac *.java
 ```
 
-3. Then, to test the parser on an example file called ```test.txt```, run the following command (-tree for terminal output and -gui for visualization):
+3. Then, to test the parser on an example file called ```test.txt```, run the following commands (-tree for terminal output and -gui for visualization):
+
+Terminal output command:
 ```
 grun popl start test.txt -tree
+```
+
+Visualization command:
+```
 grun popl start test.txt -gui
 ```
